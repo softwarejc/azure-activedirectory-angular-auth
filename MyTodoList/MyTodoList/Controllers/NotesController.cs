@@ -17,14 +17,14 @@ namespace MyTodoList.Controllers
         }
 
         // POST: api/Notes
-        public HttpResponseMessage Post([FromBody]string note)
+        public HttpResponseMessage Post([FromBody]Note note)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            Note newNote = NotesService.Add(note);
+            Note newNote = NotesService.Add(note.Text);
 
             // All connected clients will receive this call
             NotesHub.GetConnectedHub().Clients.All.BroadcastNewNote(newNote);

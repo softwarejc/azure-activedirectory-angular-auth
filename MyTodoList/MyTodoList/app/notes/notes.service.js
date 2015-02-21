@@ -52,12 +52,15 @@
             $rootScope.$broadcast(signalR.onConnected, { connectionId: _hubConnection.id });
         }
 
-        function _addNote(note) {
+        function _addNote(noteText) {
+            var note = {};
+            note.text = noteText;
+
             _notesResource.save(note);
         }
 
         function _removeNote(noteId) {
-            _notesResource.remove(noteId);
+            _notesResource.remove({ 'noteId': noteId });
         }
 
         function _getAllNotesAsync() {
