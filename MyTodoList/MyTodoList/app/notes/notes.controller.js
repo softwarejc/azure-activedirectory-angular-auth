@@ -56,7 +56,6 @@
 
         function _removeNote(id) {
             notesService.removeNote(id);
-            removeNote(id);
         }
 
         //// PRIVATE Functions

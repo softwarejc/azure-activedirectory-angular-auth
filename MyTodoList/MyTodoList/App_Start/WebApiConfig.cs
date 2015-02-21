@@ -1,8 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Web.Http;
-using Microsoft.Owin;
-using Owin;
+﻿using System.Web.Http;
 
 namespace MyTodoList
 {

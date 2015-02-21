@@ -53,20 +53,26 @@
         }
 
         function _addNote(note) {
-            _notesHubProxy.invoke(notesSignalR.addNote, note);
+            _notesResource.save(note);
         }
 
         function _removeNote(noteId) {
-            _notesHubProxy.invoke(notesSignalR.removeNote, noteId);
+            _notesResource.remove(noteId);
         }
 
         function _getAllNotesAsync() {
 
             var deferred = $q.defer();
 
-            _notesResource.query(function (notes) {
-                deferred.resolve(notes);
-            });
+            _notesResource.query(
+                // Success
+                function (notes) {
+                    deferred.resolve(notes);
+                },
+                // Error
+                function (error) {
+                    console.error(error.data.Message);
+                });
 
             return deferred.promise;
         }

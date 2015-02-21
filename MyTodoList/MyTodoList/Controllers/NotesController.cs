@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using MyTodoList.Hubs.Notes;
 using MyTodoList.Models.Notes;
@@ -15,16 +17,38 @@ namespace MyTodoList.Controllers
         }
 
         // POST: api/Notes
-        public void Post([FromBody]string note)
+        public HttpResponseMessage Post([FromBody]string note)
         {
-            NotesHub.GetConnectedHub().Clients.All.AddNote(note);
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+
+            Note newNote = NotesService.Add(note);
+
+            // All connected clients will receive this call
+            NotesHub.GetConnectedHub().Clients.All.BroadcastNewNote(newNote);
+
+            // response back
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-
         // DELETE: api/Notes
-        public void Delete(int noteId)
+        public HttpResponseMessage Delete(int noteId)
         {
-            NotesHub.GetConnectedHub().Clients.All.RemoveNote(noteId);
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+
+            if (NotesService.Remove(noteId))
+            {
+                // All connected clients will receive this call
+                NotesHub.GetConnectedHub().Clients.All.BroadcastRemoveNote(noteId);
+            }
+
+            // response back
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

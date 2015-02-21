@@ -16,7 +16,7 @@ namespace MyTodoList
         public void Configuration(IAppBuilder app)
         {
             // Configure ADAL
-            //this.ConfigureWebApiAdalAuth(app);
+            this.ConfigureAuth(app);
 
             // SignalR
             app.MapSignalR();
@@ -25,33 +25,20 @@ namespace MyTodoList
         /// <summary>
         /// Configures WindowsAzure Active Directory authentication
         /// </summary>
-        private void ConfigureWebApiAdalAuth(IAppBuilder app)
+        private void ConfigureAuth(IAppBuilder app)
         {
-            var authOptions = new WindowsAzureActiveDirectoryBearerAuthenticationOptions
-            {
-                //TokenValidationParameters = new TokenValidationParameters
-                //{
-                //    ValidAudience = ConfigurationManager.AppSettings["adal:ClientId"],
-                //},
-                Tenant = ConfigurationManager.AppSettings["adal:Tenant"]
-            };
+            app.UseWindowsAzureActiveDirectoryBearerAuthentication(
+               new WindowsAzureActiveDirectoryBearerAuthenticationOptions
+               {
+                   // Azure active directory to use
+                   Tenant = ConfigurationManager.AppSettings["adal:Tenant"],
 
-            app.UseWindowsAzureActiveDirectoryBearerAuthentication(authOptions);
-
-            // enable OAuth authentication (Bearer)
-            var OAuthServerOptions = new OAuthAuthorizationServerOptions()
-            {
-                AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new OAuthAuthorizationServerProvider(),
-                AuthorizeEndpointPath = new PathString("/api/")
-            };
-
-            //// Token Generation
-            app.UseOAuthAuthorizationServer(OAuthServerOptions);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-           // app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions() { AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active });
+                   // Active directory application to authenticate 
+                   TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidAudience = ConfigurationManager.AppSettings["adal:ClientId"],
+                   }
+               });
 
         }
     }
