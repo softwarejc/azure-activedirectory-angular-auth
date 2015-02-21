@@ -14,9 +14,9 @@
 
         //// PUBLIC Methods
         vm.activate = _activate;
-        vm.isAuthenticated = $scope.userInfo && $scope.userInfo.isAuthenticated;
-        vm.userName = $scope.userInfo.userName;
-        vm.profile = angular.fromJson($scope.userInfo.profile);
+        vm.isAuthenticated = false;
+        vm.userName = undefined;
+        vm.profile = [];
 
         vm.login = _login;
         vm.logOut = _logOut;
@@ -29,8 +29,14 @@
 
         //// PRIVATE Functions - Public Methods Implementation	
         function _activate() {
+            vm.isAuthenticated = $scope.userInfo && $scope.userInfo.isAuthenticated;
+
             if (vm.isAuthenticated) {
                 console.debug($scope.userInfo);
+
+                vm.userName = $scope.userInfo.userName;
+                vm.profile = angular.fromJson($scope.userInfo.profile);
+
             } else {
                 console.debug("user not authenticated");
             }

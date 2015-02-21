@@ -1,8 +1,9 @@
 ﻿<div class="jumbotron">
     <span ng-show="vm.isAuthenticated">
         <h1>Hello, {{vm.profile.given_name}} !</h1>
-        <p>{{vm.userName}}</p>
+        <p>{{vm.profile.name}}</p>
     </span>
+
     <span ng-show="!vm.isAuthenticated">
         <h1>Please log in</h1>
     </span>

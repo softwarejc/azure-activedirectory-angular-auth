@@ -19,7 +19,7 @@
                 <div class="col col-md-4">
                     <div class="btn-group text-center pull-right" role="group" aria-label="...">
                         <button href="#" class="btn btn-default" ui-sref="login">
-                            <div class="glyphicon glyphicon-user"></div> login
+                            <div class="glyphicon glyphicon-user"></div> Home
                         </button>
                         <button href="#" class="btn btn-default" ui-sref="notes">
                             <div class="glyphicon glyphicon-list-alt"></div> My list of tasks
@@ -46,18 +46,21 @@
         </div>
     </div>
 
-    @*this order is important*@
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @Scripts.Render("~/bundles/adal")
+
+    @*this order is important*@
     @Scripts.Render("~/bundles/signalr")
     <script src="~/signalr/hubs"></script>
     @*--*@
 
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/underscore")
 
-    @Scripts.Render("~/bundles/adal")
     @Scripts.Render("~/bundles/angularapp")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
