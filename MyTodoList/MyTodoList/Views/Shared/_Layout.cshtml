@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html ng-app="notesModule" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    @*Header*@
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <h3 style="color: white">
+                Angular JS - Azure Active directory Auth and SignalR demo
+            </h3>
+            <div class="btn-group text-center pull-right" role="group" aria-label="...">
+                <button href="#" class="btn btn-default" ui-sref="login">
+                    <div class="glyphicon glyphicon-user"></div>  login
+                </button>
+                <button href="#" class="btn btn-default" ui-sref="notes">
+                    <div class="glyphicon glyphicon-list-alt"></div>  My list of tasks
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @*Body*@
+    <div class="container body-content" style="margin-top: 40px">
+        @RenderBody()
+        <hr />
+
+        @*Footer*@
+        <div class="navbar navbar-fixed-bottom">
+            <footer id="footer">
+                <p style="color: white">
+                    Juan Carlos Sanchez &copy; @DateTime.Now.Year -
+                    <a href="http://www.softwarejuancarlos.com" target="_blank">http://www.softwarejuancarlos.com</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    @*this order is important*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/signalr")
+    <script src="~/signalr/hubs"></script>
+    @*--*@
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/underscore")
+
+    @Scripts.Render("~/bundles/adal")
+    @Scripts.Render("~/bundles/angularapp")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

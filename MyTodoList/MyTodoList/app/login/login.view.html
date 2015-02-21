@@ -1,0 +1,13 @@
+﻿<div class="jumbotron">
+    <span ng-show="vm.isAuthenticated">
+        <h1>Hello, {{vm.profile.given_name}} !</h1>
+        <p>{{vm.userName}}</p>
+    </span>
+    <span ng-show="!vm.isAuthenticated">
+        <h1>Please log in</h1>
+    </span>
+    
+    <!--Login / Logout-->
+    <button type="button" class="btn btn-primary btn-lg" ng-click="vm.login()" ng-disabled="vm.isAuthenticated">Login</button>
+    <button type="button" class="btn btn-primary btn-lg" ng-click="vm.logOut()" ng-disabled="!vm.isAuthenticated">Logout</button>
+</div>
