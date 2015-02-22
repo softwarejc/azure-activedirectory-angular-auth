@@ -22,10 +22,10 @@
             // For any unmatched URL redirect to main URL
             $urlRouterProvider.otherwise("/login");
 
-            $locationProvider.html5Mode({
-                enabled: true,
-                requireBase: false
-            });
+            //$locationProvider.html5Mode({
+            //    enabled: true,
+            //    requireBase: false
+            //});
 
             $stateProvider
 
